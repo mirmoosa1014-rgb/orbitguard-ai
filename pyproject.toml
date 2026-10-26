@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "orbitguard-ai"
+version = "1.0.0"
+description = "Synthetic orbital conjunction and maneuver laboratory"
+requires-python = ">=3.11"
+dynamic = ["dependencies"]
+[tool.setuptools.dynamic]
+dependencies = {file = "requirements.txt"}
+[tool.setuptools.packages.find]
+include = ["orbitguard*"]
+[tool.pytest.ini_options]
+pythonpath = ["."]
