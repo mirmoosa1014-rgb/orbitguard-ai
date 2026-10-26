@@ -1,0 +1,61 @@
+name: Blueprint browser verification
+on:
+  workflow_dispatch:
+  push:
+    branches: ["design/**"]
+    paths:
+      - 'frontend/**'
+      - 'scripts/browser-smoke.cjs'
+      - '.github/workflows/visual-qa.yml'
+  pull_request:
+    paths:
+      - 'frontend/**'
+      - 'scripts/browser-smoke.cjs'
+      - '.github/workflows/visual-qa.yml'
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install exact frontend dependencies
+        run: npm ci
+        working-directory: frontend
+      - name: Install official headless Chromium and system dependencies
+        run: npx playwright install --with-deps chromium
+        working-directory: frontend
+      - name: Typecheck and build
+        run: npm run build
+        working-directory: frontend
+      - name: Verify controls, stable values, desktop, mobile and reduced motion
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm --prefix frontend run preview > /tmp/orbitguard-preview.log 2>&1 &
+          preview_pid=$!
+          trap 'kill "$preview_pid" 2>/dev/null || true' EXIT
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:5102/ > /dev/null; then break; fi
+            sleep 1
+          done
+          # Never upload historical checked-in screenshots as fresh evidence.
+          rm -f docs/images/app-screenshot.png docs/images/app-mobile.png docs/images/app-reduced-motion.png
+          node scripts/browser-smoke.cjs
+      - name: Publish actual browser screenshots for review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: orbitguard-blueprint-browser-evidence
+          path: |
+            docs/images/app-screenshot.png
+            docs/images/app-mobile.png
+            docs/images/app-reduced-motion.png
+          if-no-files-found: warn
+          retention-days: 14

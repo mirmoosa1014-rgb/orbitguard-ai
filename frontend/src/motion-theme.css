@@ -1,0 +1,32 @@
+/* motionstyle_blueprint — Blueprint */
+:root {
+  --bg: #071E36;
+  --bg-raised: #0A2744;
+  --surface: #071E36;
+  --ink: #E5F6FF;
+  --text: #E5F6FF;
+  --text-dim: #8FB4C9;
+  --primary: #7FDBFF;
+  --primary-light: #C7F1FF;
+  --primary-dark: #3AA7CC;
+  --secondary: #F2C14E;
+  --accent: #FFFFFF;
+  --danger: #FF8A7A;
+  --ok: #9BE7C4;
+  --info: #7FDBFF;
+  --radius: 0px;
+  --border-width: 1px;
+  --border-color: #7FDBFF;
+  --shadow: none;
+  --blur: 0px;
+  --font-display: Helvetica Neue, Helvetica, Arial, sans-serif;
+  --font-body: Helvetica Neue, Helvetica, Arial, sans-serif;
+  --font-mono: SF Mono, ui-monospace, Menlo, Consolas, monospace;
+  --stagger: 0.04s;
+  --duration-stroke-draw: 1.05s;
+  --ease-stroke-draw: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-tick-in: 0.2s;
+  --ease-tick-in: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-label-in: 0.35s;
+  --ease-label-in: cubic-bezier(0.16, 1, 0.3, 1);
+}

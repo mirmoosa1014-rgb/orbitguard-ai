@@ -10,9 +10,9 @@ Inputs are generated Earth-centered inertial position/velocity states and virtua
 
 *Analysis figure generated from [saved experiment outputs](results/), not an app screenshot.*
 
-![Actual desktop application with interactive orbital theater and measured plots](docs/images/app-screenshot.png)
+![Historical pre-Blueprint desktop application with interactive orbital theater and measured plots](docs/images/app-screenshot.png)
 
-[Mobile screenshot](docs/images/app-mobile.png) · [Short numerical encounter animation](docs/images/encounter.gif)
+[Historical pre-Blueprint mobile screenshot](docs/images/app-mobile.png) · [Short numerical encounter animation](docs/images/encounter.gif)
 
 ## Explore the workbench
 
@@ -106,3 +106,7 @@ Source was restored from retained authored tool calls after the Mac environment 
 ## Repository
 
 [Source and releases](https://github.com/mirmoosa1014-rgb/orbitguard-ai) · [Continuous integration](https://github.com/mirmoosa1014-rgb/orbitguard-ai/actions)
+
+## Visual design
+
+The current frontend uses the Motion Graphic Style Library’s Blueprint drafting-sheet style. [Design/source/license mapping](docs/design.md) and [MIT attribution](THIRD_PARTY_NOTICES.md) document the adaptation. The historical UI screenshots above predate this restyle. Local browser launch is blocked by the Mac sandbox; the prepared Blueprint browser-verification workflow will capture real replacement desktop/mobile/reduced-motion images after it runs. The analysis figure and numerical GIF have been recolored from unchanged saved outputs. No scientific results changed.
