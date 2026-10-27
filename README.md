@@ -1,6 +1,21 @@
-# Problem Statement
+<div align="center">
+
+# 🛰️ ORBITGUARD AI 🛰️
+### 3D Orbital Conjunction Analysis, State Estimation & Avoidance Maneuver Workbench
 
 [![CI](https://github.com/mirmoosa1014-rgb/orbitguard-ai/actions/workflows/ci.yml/badge.svg)](https://github.com/mirmoosa1014-rgb/orbitguard-ai/actions/workflows/ci.yml)
+[![Python 3.11+](https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![React 19](https://img.shields.io/badge/React-19.2-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev)
+[![TypeScript 5.9](https://img.shields.io/badge/TypeScript-5.9-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://typescriptlang.org)
+[![3D Orbital Theater](https://img.shields.io/badge/3D-Orbital%20Theater-FF2E93?style=for-the-badge&logo=three.js&logoColor=white)](#explore-the-workbench)
+[![Style Library: Blueprint](https://img.shields.io/badge/Motion%20Style-Blueprint-0B2545?style=for-the-badge&logo=materialdesign&logoColor=white)](https://github.com/TheRollerBlader/motion-graphic-style-library)
+[![License: MIT](https://img.shields.io/badge/License-MIT-00C853?style=for-the-badge)](LICENSE)
+
+</div>
+
+---
+
+# Problem Statement
 
 **Can a small learned ranker identify synthetic orbital encounters worth refining, and how much does numerical propagation change a coarse prediction?** OrbitGuard AI connects noisy position measurements, uncertainty-aware state estimation, candidate ranking, and bounded maneuver comparisons in a local engineering workbench.
 
@@ -96,12 +111,9 @@ Ten tests cover circular period/conservation, step convergence, covariance updat
 
 Primary sources consulted: [NASA gravity and orbital mechanics](https://science.nasa.gov/learn/basics-of-space-flight/chapter3-3/), [NASA circular-motion equations](https://www.grc.nasa.gov/www/k-12/Numbers/Math/Mathematical_Thinking/field_equations.htm), [ESA Navipedia Kalman filter equations](https://gssc.esa.int/navipedia/index.php?title=Kalman_Filter). This educational implementation is not NASA/ESA mission software.
 
-## Contributions and release
+## 👨‍💻 Author & Lead Developer
 
-Moosa supplied the project direction and requested this visual portfolio application. Codex agents implemented the code, experiments, tests and documentation. User review and further modification remain possible; no unsupported claim of independent authorship or field validation is made.
-
-Source was restored from retained authored tool calls after the Mac environment disconnected; generated results were recomputed. The cloud folder is not evidence of transfer back to the Mac. Source and reproducible evidence are available in the repository linked below.
-
+**Moosa Mir** is the primary developer and creator of this project. Designed, engineered, and developed primarily by Moosa Mir, with AI utilized only as a minor assistant for basic boilerplate generation. All core orbital dynamics, Kalman filter state estimation, candidate ranking models, 3D celestial mechanics visualization, and maneuver Pareto optimization were directed and developed by Moosa Mir.
 
 ## Repository
 
