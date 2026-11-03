@@ -12,7 +12,7 @@ def step(x,dt):
     return x+dt*(a+2*b+2*c+d)/6
 def propagate(x,times,impulse=None):
     times=np.asarray(times,float)
-    if len(times)<2 or np.any(np.diff(times)<=0):raise ValueError('strictly increasing times required')
+    if times.ndim!=1 or times.size<2 or not np.isfinite(times).all() or np.any(np.diff(times)<=0):raise ValueError('finite, one-dimensional, strictly increasing times required')
     x=np.asarray(x,float).copy()
     if x.shape!=(6,) or not np.isfinite(x).all():raise ValueError('finite 6-state required')
     if impulse is not None:

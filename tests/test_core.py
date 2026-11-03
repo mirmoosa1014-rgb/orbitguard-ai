@@ -33,6 +33,11 @@ def test_bad_times_and_impulses():
     with pytest.raises(ValueError):propagate(x,[0,20],(0,np.array([3.,0,0])))
     with pytest.raises(ValueError):propagate(x,[0,20],(1,np.zeros(3)))
 
+@pytest.mark.parametrize('times', [0, [[0,20]], [0,np.nan], [0,np.inf], [-np.inf,0]])
+def test_reject_invalid_time_grid(times):
+    with pytest.raises(ValueError, match='times required'):
+        propagate(circular(),times)
+
 def test_deterministic_catalog_and_split():
     a=catalog(100);b=catalog(100);assert np.array_equal(a[3],b[3]);assert not np.array_equal(a[1],catalog(700)[1])
 
