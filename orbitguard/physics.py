@@ -17,7 +17,9 @@ def propagate(x,times,impulse=None):
     if x.shape!=(6,) or not np.isfinite(x).all():raise ValueError('finite 6-state required')
     if impulse is not None:
         index,dv=impulse
-        if index<0 or index>=len(times)-1 or np.linalg.norm(dv)>2.00001:raise ValueError('invalid impulse; maximum 2 m/s')
+        dv=np.asarray(dv,float)
+        if isinstance(index,(bool,np.bool_)) or not isinstance(index,(int,np.integer)) or index<0 or index>=len(times)-1 or dv.shape!=(3,) or not np.isfinite(dv).all() or np.linalg.norm(dv)>2.00001:raise ValueError('invalid impulse; finite 3-vector and integer index required, maximum 2 m/s')
+        impulse=(index,dv)
     out=[x.copy()]
     for i,dt in enumerate(np.diff(times),1):
         if impulse is not None and i-1==impulse[0]: x[3:]+=impulse[1]

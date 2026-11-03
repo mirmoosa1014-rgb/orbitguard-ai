@@ -38,6 +38,16 @@ def test_reject_invalid_time_grid(times):
     with pytest.raises(ValueError, match='times required'):
         propagate(circular(),times)
 
+@pytest.mark.parametrize('impulse', [(0,np.nan),(0,[np.nan,0,0]),(0,[1]),(0,1.),(.5,[1,0,0]),(True,[1,0,0])])
+def test_reject_malformed_impulse(impulse):
+    with pytest.raises(ValueError):propagate(circular(),[0,20,40],impulse)
+
+def test_impulse_at_start_matches_initial_velocity_change():
+    x=circular();dv=np.array([1.,0,0]);changed=x.copy();changed[3:]+=dv
+    result=propagate(x,[0,20,40],(np.int64(0),dv))
+    assert np.allclose(result[1:],propagate(changed,[0,20,40])[1:])
+    assert np.array_equal(x,circular()) and np.array_equal(dv,[1.,0,0])
+
 def test_deterministic_catalog_and_split():
     a=catalog(100);b=catalog(100);assert np.array_equal(a[3],b[3]);assert not np.array_equal(a[1],catalog(700)[1])
 
