@@ -2,6 +2,10 @@
 import numpy as np
 FEATURES=['coarse_miss_km','relative_speed_km_s','time_to_coarse_ca_fraction','position_sigma_km']
 def train(X,y):
+    X=np.asarray(X,dtype=float);y=np.asarray(y,dtype=float)
+    if X.ndim!=2 or X.shape[1]!=4 or len(X)==0 or y.shape!=(len(X),):raise ValueError('nonempty four-feature rows and matching labels required')
+    if not np.isfinite(X).all() or not np.isfinite(y).all():raise ValueError('training data must be finite')
+    if set(np.unique(y))!={0.,1.}:raise ValueError('training labels must include both binary classes')
     mean=X.mean(0);scale=X.std(0)+1e-9;Z=(X-mean)/scale;w=np.zeros(4);b=0.
     positive=max(float(y.mean()),.01);weights=np.where(y>0,.5/positive,.5/(1-positive))
     for _ in range(1600):
