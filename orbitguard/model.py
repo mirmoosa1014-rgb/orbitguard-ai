@@ -19,6 +19,10 @@ def rank_candidates(features,path):
     try:
         model=json.loads(Path(path).read_text())
         if model['features']!=FEATURES:raise ValueError('schema mismatch')
+        for key in ('mean','scale','weights'):
+            values=np.asarray(model[key],float)
+            if values.shape!=(4,) or not np.isfinite(values).all():raise ValueError('invalid model vector')
+        if np.any(np.asarray(model['scale'])<=0) or np.ndim(model['bias'])!=0 or not np.isfinite(model['bias']):raise ValueError('invalid scale or bias')
         scores=score(model,features)
         if not np.isfinite(scores).all():raise ValueError('nonfinite scores')
         return np.argsort(-scores),'learned'
