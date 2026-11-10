@@ -28,6 +28,7 @@ def propagate(x,times,impulse=None):
         out.append(x.copy())
     return np.array(out)
 def circular(radius=R_EARTH+550000.,phase=0.,inclination=0.):
+    if any(isinstance(v,(bool,np.bool_)) or not isinstance(v,(int,float,np.integer,np.floating)) or not np.isfinite(v) for v in (radius,phase,inclination)) or radius<R_EARTH:raise ValueError('finite orbital angles and a radius outside Earth required')
     c,s=np.cos(phase),np.sin(phase); ci,si=np.cos(inclination),np.sin(inclination)
     speed=np.sqrt(MU/radius)
     return np.array([radius*c,radius*s*ci,radius*s*si,-speed*s,speed*c*ci,speed*c*si])
