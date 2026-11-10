@@ -10,6 +10,7 @@ def predict(x,P,dt):
     G=np.vstack([np.eye(3)*dt*dt/2,np.eye(3)*dt])
     return step(x,dt), F@P@F.T+q*q*G@G.T
 def update(x,P,z,sigma=80.):
+    if isinstance(sigma,(bool,np.bool_)) or not isinstance(sigma,(int,float,np.integer,np.floating)) or not np.isfinite(sigma) or sigma<=0:raise ValueError('measurement sigma must be a finite positive number')
     H=np.c_[np.eye(3),np.zeros((3,3))];R=np.eye(3)*sigma**2
     innovation=z-H@x;S=H@P@H.T+R;K=np.linalg.solve(S,H@P).T
     A=np.eye(6)-K@H
