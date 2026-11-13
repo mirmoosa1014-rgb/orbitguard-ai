@@ -1,6 +1,8 @@
 import numpy as np
 from .physics import circular,propagate,step
 def catalog(seed=2026,count=18,horizon=1800):
+    if isinstance(count,(bool,np.bool_)) or not isinstance(count,(int,np.integer)) or count<1:raise ValueError('catalog count must be a positive integer')
+    if isinstance(horizon,(bool,np.bool_)) or not isinstance(horizon,(int,float,np.integer,np.floating)) or not np.isfinite(horizon) or horizon<20 or horizon%20:raise ValueError('horizon must be a positive multiple of 20 seconds')
     rng=np.random.default_rng(seed);times=np.arange(0,horizon+1,20.)
     family=seed//100
     primary=circular(radius=6371000.+450000.+family*18000.,inclination=.15+family*.055);states=[]
@@ -9,7 +11,8 @@ def catalog(seed=2026,count=18,horizon=1800):
     truth=propagate(primary,times)
     # Deliberate future encounter: integrate a relative offset at 1200s backward.
     # Policies receive only the resulting present state, never future labels.
-    encounter=truth[60].copy();encounter[:3]+=np.array([900.,300.,200.]);encounter[3:]+=np.array([2.,7.,3.])
+    # Keep the same present encounter state even when the requested replay ends early.
+    encounter=(truth[60] if len(truth)>60 else propagate(primary,np.arange(0,1201,20.))[-1]).copy();encounter[:3]+=np.array([900.,300.,200.]);encounter[3:]+=np.array([2.,7.,3.])
     for _ in range(60):encounter=step(encounter,-20.)
     states[0]=encounter
     debris=np.array([propagate(x,times) for x in states])
