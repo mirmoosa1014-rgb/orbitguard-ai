@@ -30,6 +30,7 @@ def estimate(initial,measurements,dt=20.):
         x,P,r=update(x,P,z);states.append(x.copy());cov.append(P.copy());res.append(r)
     return np.array(states),np.array(cov),np.array(res)
 def estimate_cv(initial,measurements,dt=20.,acceleration_sigma=10.):
+    if isinstance(acceleration_sigma,(bool,np.bool_)) or not isinstance(acceleration_sigma,(int,float,np.integer,np.floating)) or not np.isfinite(acceleration_sigma) or acceleration_sigma<0:raise ValueError('acceleration sigma must be a finite nonnegative number')
     x,measurements=estimation_inputs(initial,measurements,dt);P=np.diag([300**2]*3+[3**2]*3);states=[];cov=[];res=[]
     F=np.eye(6);F[:3,3:]=np.eye(3)*dt
     G=np.vstack([np.eye(3)*dt*dt/2,np.eye(3)*dt]);Q=acceleration_sigma**2*G@G.T
